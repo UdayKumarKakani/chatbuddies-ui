@@ -1,0 +1,90 @@
+
+<div class="relative p-4 border-t border-gray-100">
+  <form (ngSubmit)="handleSubmit()" class="flex items-center gap-2">
+    <div class="relative">
+      <button
+        type="button"
+        id="plus-button"
+        (click)="toggleOptions()"
+        class="h-10 w-10 rounded-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </button>
+      
+      <div 
+        *ngIf="showOptions" 
+        [@optionsAnimation]
+        id="chatbot-options"
+        class="absolute bottom-14 left-0 bg-white rounded-lg shadow-lg py-2 w-36 z-10">
+        <button
+          *ngFor="let option of [
+            { icon: 'image', label: 'Image', action: 'triggerImageUpload' },
+            { icon: 'file-text', label: 'Document', action: 'triggerDocumentUpload' }
+          ]; let i = index"
+          type="button"
+          [@optionAnimation]="{ value: '', params: { delay: i * 0.05 } }"
+          (click)="this[option.action]()"
+          class="flex items-center gap-2 w-full px-3 py-2 hover:bg-gray-100 text-left text-sm"
+        >
+          <span class="text-blue-600">
+            <svg *ngIf="option.icon === 'image'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            <svg *ngIf="option.icon === 'file-text'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </span>
+          <span>{{option.label}}</span>
+        </button>
+      </div>
+      
+      <input
+        type="file"
+        #imageInput
+        class="hidden"
+        accept="image/*"
+        (change)="handleImageUpload($event)"
+      />
+      
+      <input
+        type="file"
+        #documentInput
+        class="hidden"
+        accept=".pdf,.doc,.docx,.txt"
+        (change)="handleDocumentUpload($event)"
+      />
+    </div>
+    
+    <input
+      type="text"
+      [(ngModel)]="message"
+      name="message"
+      placeholder="Type a message..."
+      class="flex-1 py-2 px-4 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400/30 transition-all"
+    />
+    
+    <button
+      type="submit"
+      [disabled]="!message.trim()"
+      [ngClass]="message.trim() 
+        ? 'bg-blue-600 text-white' 
+        : 'bg-gray-200 text-gray-400 cursor-not-allowed'"
+      class="h-10 w-10 rounded-full flex items-center justify-center transition-all duration-200"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"></line>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+      </svg>
+    </button>
+  </form>
+</div>

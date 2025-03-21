@@ -1,0 +1,6 @@
+
+<app-chatbot-icon [isOpen]="(isOpen$ | async) || false" (click)="toggleChatbot()"></app-chatbot-icon>
+
+<ng-container *ngIf="isOpen$ | async">
+  <app-chat-interface></app-chat-interface>
+</ng-container>

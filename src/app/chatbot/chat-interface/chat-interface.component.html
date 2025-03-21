@@ -1,0 +1,42 @@
+
+<div 
+  [@slideIn]
+  class="fixed bottom-24 right-6 z-40 flex overflow-hidden rounded-lg shadow-xl bg-white"
+  [ngClass]="isMaximized ? 'top-6 left-6 right-6 bottom-6 w-auto h-auto' : 'w-80 h-96'">
+
+  <div *ngIf="isHistoryOpen" class="w-64 bg-gray-50 border-r border-gray-100">
+    <app-chat-history (closeHistory)="toggleHistory()"></app-chat-history>
+  </div>
+
+  <div class="flex flex-col flex-1 h-full">
+    <app-chat-header
+      [title]="(currentSession$ | async)?.title || 'New Chat'"
+      [isMaximized]="isMaximized"
+      (toggleHistory)="toggleHistory()"
+      (toggleMaximize)="toggleMaximize()"
+      (close)="closeChatbot()">
+    </app-chat-header>
+
+    <div class="flex-1 overflow-y-auto p-4">
+      <div *ngIf="(currentSession$ | async)?.messages?.length === 0" class="h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center">Start a conversation by typing a message below.</p>
+      </div>
+
+      <ng-container *ngIf="(currentSession$ | async) as session">
+        <app-chat-message 
+          *ngFor="let message of session.messages; let last = last" 
+          [message]="message.message"
+          [type]="message.type"
+          [timestamp]="message.timestamp"
+          [isLast]="last">
+        </app-chat-message>
+      </ng-container>
+    </div>
+
+    <app-chat-input
+      (sendMessage)="onSendMessage($event)"
+      (uploadImage)="onUploadImage($event)"
+      (uploadDocument)="onUploadDocument($event)">
+    </app-chat-input>
+  </div>
+</div>

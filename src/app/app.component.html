@@ -1,0 +1,79 @@
+
+<div class="min-h-screen w-full bg-white">
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
+    <div class="text-center max-w-3xl mx-auto" 
+         [@fadeInUp]>
+      <div class="mb-4" 
+           [@fadeIn]="{ value: null, params: { delay: '200ms' } }">
+        <span class="bg-black text-white text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wider">
+          Introducing
+        </span>
+      </div>
+      
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight"
+          [@fadeInUp]="{ value: null, params: { delay: '300ms' } }">
+        Seamless Communication <br class="hidden sm:block" />
+        <span class="text-primary">Intelligent Support</span>
+      </h1>
+      
+      <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
+         [@fadeIn]="{ value: null, params: { delay: '500ms' } }">
+        Experience our innovative chatbot solution that combines beautiful design
+        with powerful functionality to transform how you interact with your customers.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center"
+           [@fadeInUp]="{ value: null, params: { delay: '700ms' } }">
+        <button class="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-blue-600 transition-colors">
+          Get Started
+        </button>
+        <button class="bg-gray-100 text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors">
+          Learn More
+        </button>
+      </div>
+    </div>
+    
+    <div class="absolute -bottom-32 left-1/2 transform -translate-x-1/2 w-full max-w-6xl px-4"
+         [@fadeInUp]="{ value: null, params: { delay: '1000ms' } }">
+      <div class="bg-gray-100 rounded-2xl p-8 shadow-lg transform rotate-1">
+        <div class="bg-white rounded-xl shadow-sm h-72 flex items-center justify-center">
+          <p class="text-xl text-gray-500">Interactive Demo Illustration</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-32 mt-32 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16"
+           [@fadeIn]>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Designed For Exceptional Experiences</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Our chatbot seamlessly combines powerful functionality with an elegant, intuitive interface.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div *ngFor="let feature of features; let i = index" class="bg-white p-6 rounded-xl shadow-sm"
+             [@fadeInUp]="{ value: null, params: { delay: i * 100 + 'ms' } }">
+          <h3 class="text-xl font-medium mb-3">{{feature.title}}</h3>
+          <p class="text-gray-600">{{feature.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-gray-500">
+        © {{currentYear}} ChatBot Interface. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Chatbot Component -->
+  <app-chatbot></app-chatbot>
+</div>
